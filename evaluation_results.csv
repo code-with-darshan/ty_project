@@ -1,0 +1,6 @@
+Query,Expected Action,Actual Action,Confidence Score,Latency (s)
+What is the punishment for snatching under BNS?,Answered,Answered,84.7,36.64
+Are electronic records admissible under BSA?,Answered,Answered,85.0,45.69
+What is the procedure for a Zero FIR?,Refused,Refused,0.0,3.82
+Can a police officer arrest a woman after sunset?,Answered,Answered,30.0,27.3
+What is the penalty for cryptocurrency laundering?,Refused,Answered,60.0,31.57

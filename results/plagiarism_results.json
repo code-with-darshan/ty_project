@@ -1,0 +1,109 @@
+{
+  "scanned_root": "D:\\Legal-rag-assistant",
+  "files_scanned_count": 31,
+  "threshold": 0.6,
+  "top_matches_count": 0,
+  "top_matches": [],
+  "best_match_per_file_sample": {
+    "D:\\Legal-rag-assistant\\tests\\test_cleaner.py": {
+      "other": "D:\\Legal-rag-assistant\\tests\\test_real_chunking.py",
+      "score": 0.5311475409836065
+    },
+    "D:\\Legal-rag-assistant\\tests\\test_real_chunking.py": {
+      "other": "D:\\Legal-rag-assistant\\tests\\test_cleaner.py",
+      "score": 0.5311475409836065
+    },
+    "D:\\Legal-rag-assistant\\tests\\find_repeated_lines.py": {
+      "other": "D:\\Legal-rag-assistant\\tests\\test_cleaner.py",
+      "score": 0.4459591041869523
+    },
+    "D:\\Legal-rag-assistant\\tests\\test_section_chunking.py": {
+      "other": "D:\\Legal-rag-assistant\\tests\\test_cleaner.py",
+      "score": 0.43912448700410395
+    },
+    "D:\\Legal-rag-assistant\\tests\\test_pdf_blocks.py": {
+      "other": "D:\\Legal-rag-assistant\\tests\\test_pdf_extraction.py",
+      "score": 0.3386960203217612
+    },
+    "D:\\Legal-rag-assistant\\tests\\test_pdf_extraction.py": {
+      "other": "D:\\Legal-rag-assistant\\tests\\test_pdf_blocks.py",
+      "score": 0.3386960203217612
+    },
+    "D:\\Legal-rag-assistant\\src\\generation\\generator.py": {
+      "other": "D:\\Legal-rag-assistant\\src\\retrieval\\query_expander.py",
+      "score": 0.21612771182971757
+    },
+    "D:\\Legal-rag-assistant\\src\\retrieval\\query_expander.py": {
+      "other": "D:\\Legal-rag-assistant\\src\\generation\\generator.py",
+      "score": 0.21612771182971757
+    },
+    "D:\\Legal-rag-assistant\\src\\ingestion\\build_knowledge_base.py": {
+      "other": "D:\\Legal-rag-assistant\\tests\\test_section_chunking.py",
+      "score": 0.11350958040261945
+    },
+    "D:\\Legal-rag-assistant\\app.py": {
+      "other": "D:\\Legal-rag-assistant\\tests\\test_retrieval.py",
+      "score": 0.10643653362099964
+    },
+    "D:\\Legal-rag-assistant\\tests\\test_retrieval.py": {
+      "other": "D:\\Legal-rag-assistant\\app.py",
+      "score": 0.10643653362099964
+    },
+    "D:\\Legal-rag-assistant\\src\\embeddings\\embedder.py": {
+      "other": "D:\\Legal-rag-assistant\\src\\retrieval\\reranker.py",
+      "score": 0.10492227979274611
+    },
+    "D:\\Legal-rag-assistant\\src\\retrieval\\reranker.py": {
+      "other": "D:\\Legal-rag-assistant\\src\\embeddings\\embedder.py",
+      "score": 0.10492227979274611
+    },
+    "D:\\Legal-rag-assistant\\src\\verification\\verifier.py": {
+      "other": "D:\\Legal-rag-assistant\\src\\generation\\generator.py",
+      "score": 0.10140350877192983
+    },
+    "D:\\Legal-rag-assistant\\tests\\test_chunker.py": {
+      "other": "D:\\Legal-rag-assistant\\tests\\test_queries.py",
+      "score": 0.09353507565337002
+    },
+    "D:\\Legal-rag-assistant\\tests\\test_queries.py": {
+      "other": "D:\\Legal-rag-assistant\\tests\\test_chunker.py",
+      "score": 0.09353507565337002
+    },
+    "D:\\Legal-rag-assistant\\src\\ingestion\\metadata.py": {
+      "other": "D:\\Legal-rag-assistant\\tests\\test_cleaner.py",
+      "score": 0.07911001236093942
+    },
+    "D:\\Legal-rag-assistant\\src\\ingestion\\pdf_loader.py": {
+      "other": "D:\\Legal-rag-assistant\\tests\\test_pdf_extraction.py",
+      "score": 0.07734806629834254
+    },
+    "D:\\Legal-rag-assistant\\config\\settings.py": {
+      "other": "D:\\Legal-rag-assistant\\src\\ingestion\\metadata.py",
+      "score": 0.07262569832402235
+    },
+    "D:\\Legal-rag-assistant\\src\\retrieval\\vector_search.py": {
+      "other": "D:\\Legal-rag-assistant\\src\\retrieval\\reranker.py",
+      "score": 0.06627877561345813
+    },
+    "D:\\Legal-rag-assistant\\src\\ingestion\\text_cleaner.py": {
+      "other": "D:\\Legal-rag-assistant\\src\\ingestion\\pdf_loader.py",
+      "score": 0.04868913857677903
+    },
+    "D:\\Legal-rag-assistant\\src\\ingestion\\chunker.py": {
+      "other": "D:\\Legal-rag-assistant\\src\\verification\\verifier.py",
+      "score": 0.042164674634794154
+    },
+    "D:\\Legal-rag-assistant\\src\\UI\\app_streamlit.py": {
+      "other": "D:\\Legal-rag-assistant\\src\\generation\\generator.py",
+      "score": 0.0395830185828675
+    },
+    "D:\\Legal-rag-assistant\\.vscode\\settings.json": {
+      "other": "D:\\Legal-rag-assistant\\src\\ingestion\\metadata.py",
+      "score": 0.03680981595092025
+    },
+    "D:\\Legal-rag-assistant\\src\\evaluation\\evaluate.py": {
+      "other": "D:\\Legal-rag-assistant\\src\\UI\\app_streamlit.py",
+      "score": 0.03640375068946498
+    }
+  }
+}
