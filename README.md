@@ -56,72 +56,66 @@ Final Response             – Verified answer with citations, confidence tier,
 ## Key Components
 
 ### Retrieval (`src/retrieval/`)
-| File                  | Role                                                                                                      |
-|-----------------------|-----------------------------------------------------------------------------------------------------------|
-| `query_expander.py`   | Translates slang/informal queries to formal statutory terms using  few-shot Ollama prompting              |
-|                       |                                                                                                           |
-| `vector_search.py`    | Hybrid search: dense vectors (ChromaDB) + BM25, combined via Reciprocal Rank Fusion (RRF, k=60)           |
-|                       |                                                                                                           |
-| `reranker.py`         | Cross-encoder reranking using|`cross-encoder/besfems-marco-MiniLM-L-6-v2`                                 |
+| File                  | Role                                                                                             |
+|-----------------------|--------------------------------------------------------------------------------------------------|
+| `query_expander.py`   | Translates slang/informal queries to formal statutory terms using few-shot Ollama prompting      |
+| `vector_search.py`    | Hybrid search: dense vectors (ChromaDB) + BM25, combined via Reciprocal Rank Fusion (RRF, k=60) |
+| `reranker.py`         | Cross-encoder reranking using `cross-encoder/ms-marco-MiniLM-L-6-v2`                            |
 
 ### Generation (`src/generation/`)
 | File            | Role                                                                                                                |
+|-----------------|---------------------------------------------------------------------------------------------------------------------|
 | `generator.py`  | Filters chunks below relevance threshold, assembles evidence context, generates answer via Llama 3.1 through Ollama |
 
 ### Verification (`src/verification/`)
-| File           | Role     
+| File           | Role                                                                                                                                                                                          |
+|----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `verifier.py`  | **3-Layer refusal system**: (1) insufficient evidence, (2) composite score < 40%, (3) any unsupported claim → hallucination refusal. Outputs confidence tier: *High Confidence* (≥ 80%) or *Moderate Confidence* (40–79%). |
 
 ### Safety (`src/safety/`)
-| File                    | Role 
+| File                    | Role                                                                                                                                                                          |
+|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `incident_response.py`  | Deterministic, pattern-matched incident guidance card for personal crime reports. Covers general crime, cyber/financial fraud, and immediate-danger scenarios. Links to 112, 1930, cybercrime.gov.in, and NALSA. |
 
 ### Ingestion (`src/ingestion/`)
-| File                       | Role                                                                                                                                  |
-|----------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
-| `build_knowledge_base.py`  | Loads PDFs from `data/raw/`, cleans and chunks them, generates embeddings via `BAAI/bge-small-en-v1.5`, and upserts into ChromaDB.    |
-|                            | Recognises 40+ act names automatically.                                                                                               |
-| `chunker.py`               | Section-aware chunker with 1000-token chunks and 200-token  overlap                                                                   |
-| `pdf_loader.py`            | Embedded text extraction via PyMuPDF (scanned PDFs need OCR pre-processing)                                                           |
-| `text_cleaner.py`          | Statutory text normalisation                                                                                                          |
+| File                       | Role                                                                                                                                                    |
+|----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `build_knowledge_base.py`  | Loads PDFs from `data/raw/`, cleans and chunks them, generates embeddings via `BAAI/bge-small-en-v1.5`, and upserts into ChromaDB. Recognises 40+ act names automatically. |
+| `chunker.py`               | Section-aware chunker with 1000-token chunks and 200-token overlap                                                                                      |
+| `pdf_loader.py`            | Embedded text extraction via PyMuPDF (scanned PDFs need OCR pre-processing)                                                                             |
+| `text_cleaner.py`          | Statutory text normalisation                                                                                                                            |
 
 ### Embeddings (`src/embeddings/`)
 | File           | Role                                                                                   |
 |----------------|----------------------------------------------------------------------------------------|
-| `embedder.py`  | Wraps `sentence-transformers` with `BAAI/bge-small-en-v1.5`; auto-selects CUDA or CPU  | 
+| `embedder.py`  | Wraps `sentence-transformers` with `BAAI/bge-small-en-v1.5`; auto-selects CUDA or CPU |
 
 ### UI (`src/ui/`)
-```markdown
-| File                 | Role                                                                                                                  |
------------------------------------------------------------------------------------------------------------------------------------------------|
-| `app_streamlit.py`   | Full Streamlit web app with query interface, citation links (opens source PDF at cited page), document upload panel,and incident guidance card rendering   |
-|                      |                                                                                   |
-| `document_links.py`  | Resolves local PDF paths and copies them into Streamlit's static directory on demand
-                                                                  
-
+| File                  | Role                                                                                                                                      |
+|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| `app_streamlit.py`    | Full Streamlit web app with query interface, citation links (opens source PDF at cited page), document upload panel, and incident guidance card rendering |
+| `document_links.py`   | Resolves local PDF paths and copies them into Streamlit's static directory on demand                                                      |
 
 ### Evaluation (`src/evaluation/`)
-| File          | Role                                                                                                                  |
-|---------------|-----------------------------------------------------------------------------------------------------------------------|
-| `evaluate.py` | Batch evaluation pipeline: runs a labelled test set through the full pipeline, measures safety-guardrail accuracy with| 
-|               | scikit-learn, and saves `evaluation_results.csv` + `performance_dashboard.png`                                        |
-
+| File            | Role                                                                                                                                                                          |
+|-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `evaluate.py`   | Batch evaluation pipeline: runs a labelled test set through the full pipeline, measures safety-guardrail accuracy with scikit-learn, and saves `evaluation_results.csv` + `performance_dashboard.png` |
 
 ## Supported Legal Domains
 
-| Domain                        |                ExampleActs                                                                                                           |
------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Criminal**                  | BNS, BNSS, BSA (IPC / CrPC / Indian Evidence Act legacy docs also supported)                                                         |
-| **Civil / Contract**          | Indian Contract Act 1872, Specific Relief Act 1963, Limitation Act 1963, Arbitration and Conciliation Act 1996                       |
-| **Property**                  | Transfer of Property Act 1882, Registration Act 1908                                                                                 |
-| **Family / Personal**         | Hindu Marriage Act 1955, Hindu Succession Act 1956, Dowry Prohibition Act 1961, Protection of Women from Domestic Violence Act 2005  |
-| **Consumer / RTI / Digital**  | Consumer Protection Act 2019, RTI Act 2005, IT Act 2000                                                                              |
-| **Labour**                    | Factories Act 1948, Industrial Disputes Act 1947, Minimum Wages Act 1948, Maternity Benefit Act 1961                                 |
-| **Corporate / Insolvency**    | Companies Act 2013, IBC 2016, LLP Act 2008                                                                                           |
-| **Intellectual Property**     | Copyright Act 1957, Trade Marks Act 1999, Patents Act 1970                                                                           |
-| **Environment**               | Environment Protection Act 1986, Wildlife Protection Act 1972                                                                        |
-| **Tax**                       | Income Tax Act 1961, GST Act 2017                                                                                                    |
-| **Constitutional**            | Constitution of India                                                                                                                |
+| Domain                        | Example Acts                                                                                                               |
+|-------------------------------|---------------------------------------------------------------------------------------------------------------------------|
+| **Criminal**                  | BNS, BNSS, BSA (IPC / CrPC / Indian Evidence Act legacy docs also supported)                                              |
+| **Civil / Contract**          | Indian Contract Act 1872, Specific Relief Act 1963, Limitation Act 1963, Arbitration and Conciliation Act 1996            |
+| **Property**                  | Transfer of Property Act 1882, Registration Act 1908                                                                      |
+| **Family / Personal**         | Hindu Marriage Act 1955, Hindu Succession Act 1956, Dowry Prohibition Act 1961, Protection of Women from Domestic Violence Act 2005 |
+| **Consumer / RTI / Digital**  | Consumer Protection Act 2019, RTI Act 2005, IT Act 2000                                                                   |
+| **Labour**                    | Factories Act 1948, Industrial Disputes Act 1947, Minimum Wages Act 1948, Maternity Benefit Act 1961                      |
+| **Corporate / Insolvency**    | Companies Act 2013, IBC 2016, LLP Act 2008                                                                                |
+| **Intellectual Property**     | Copyright Act 1957, Trade Marks Act 1999, Patents Act 1970                                                                |
+| **Environment**               | Environment Protection Act 1986, Wildlife Protection Act 1972                                                             |
+| **Tax**                       | Income Tax Act 1961, GST Act 2017                                                                                         |
+| **Constitutional**            | Constitution of India                                                                                                     |
 
 ## Requirements
 
